@@ -7,7 +7,7 @@ from aiogram_dialog import DialogRegistry
 from config import ADMIN, token
 from dialogs.admin import admin_d
 from dialogs.main import main_d
-from handlers import start, adm_handler, errors_handler
+from handlers import start, adm_handler, errors_handler, schedule
 # from dialogs.main import main_d
 from middlewares import CheckUserMiddleware
 
@@ -26,13 +26,13 @@ async def main():
 
     dp.setup_middleware(CheckUserMiddleware())
     dp.register_message_handler(start, text="/start", state="*")
+    dp.register_message_handler(schedule, text="Расписание", state="*")
     dp.register_message_handler(adm_handler, text="/adm", state="*")
     dp.register_errors_handler(errors_handler, exception=Exception)
 
     registry = DialogRegistry(dp)
-    registry.register(main_d)
-    registry.register(admin_d)
     # registry.register(main_d)
+    registry.register(admin_d)
 
 
     await dp.start_polling()
