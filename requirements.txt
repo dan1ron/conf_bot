@@ -3,7 +3,6 @@ sqlmodel~=0.0.6
 aiogram~=2.21
 python-dotenv~=0.20.0
 aiogram-broadcaster
-aiosqlite
 aiogram_dialog
-aioredis
-redis
+async_lru
+asyncpg
