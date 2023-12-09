@@ -1,6 +1,4 @@
-import itertools
-from datetime import date, timedelta
-from functools import lru_cache
+from async_lru import alru_cache
 from typing import Optional, Union
 
 from sqlalchemy import and_, func, or_, update, not_, delete, select, insert
@@ -33,13 +31,13 @@ class Database:
         self.get_user.cache_clear()
 
 
-    @lru_cache(1024)
+    @alru_cache(1024)
     async def get_user(self, id_: int) -> Optional[User]:
         q = select(User).where(User.id == id_)
         user = await self.session.execute(q)
         return user.scalar()
 
-    @lru_cache()
+    @alru_cache(123)
     async def get_users(self):
         q = select(User)
         users = await self.session.scalars(q)
