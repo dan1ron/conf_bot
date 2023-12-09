@@ -42,9 +42,3 @@ class Database:
         q = select(User)
         users = await self.session.scalars(q)
         return users.all()
-
-    async def update_user_role(self, id_, role):
-        q = update(User).where(User.id == id_).values(role=role)
-        users = await self.session.scalars(q)
-        self.get_user.cache_clear()
-        return users.all()
