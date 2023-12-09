@@ -42,3 +42,7 @@ class Database:
         q = select(User)
         users = await self.session.scalars(q)
         return users.all()
+
+    def clear_cache(self):
+        self.get_users.cache_clear()
+        self.get_user.cache_clear()

@@ -38,6 +38,11 @@ async def sending_msg_handler(m: Message, dialog: Dialog, manager: DialogManager
     await manager.dialog().switch_to(Admin.confirm_sending)
 
 
+async def clear_cache(c: CallbackQuery, button: Button, manager: DialogManager):
+    DB.clear_cache()
+    await c.answer()
+
+
 async def start_sending(c: CallbackQuery, button: Button, manager: DialogManager):
     data = manager.current_context().dialog_data
     users = [i.id for i in await DB.get_users()]
@@ -84,5 +89,13 @@ admin_d = Dialog(
         SwitchTo(Const("Назад"), id="back_b", state=Admin.menu),
         state=Admin.stats,
         getter=stats_data,
+    ),
+    Window(
+        Const("Вы уверены что хотите отчистить кэш?"),
+        Row(
+            SwitchTo(Const("Да"), id="yes_b", state=Admin.menu, on_click=clear_cache),
+            SwitchTo(Const("Нет"), id="no_b", state=Admin.menu),
+        ),
+        state=Admin.clear_cache,
     ),
 )

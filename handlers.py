@@ -45,6 +45,11 @@ async def adm_handler(message: types.Message, dialog_manager: DialogManager):
     if message.from_user.id == ADMIN:
         await dialog_manager.start(state=Admin.menu, mode=StartMode.RESET_STACK)
 
+async def clear_cache(message: types.Message, dialog_manager: DialogManager):
+    if message.from_user.id == ADMIN:
+        await dialog_manager.start(state=Admin.clear_cache, mode=StartMode.RESET_STACK)
+
+
 
 async def errors_handler(u: types.Update, e: Exception):
     await TextBroadcaster(

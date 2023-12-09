@@ -13,6 +13,7 @@ class Admin(StatesGroup):
     confirm_sending = State()
     sending_completed = State()
     stats = State()
+    clear_cache = State()
 
 
 class Subscribe(StatesGroup):
