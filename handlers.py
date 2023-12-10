@@ -6,6 +6,7 @@ from aiogram_broadcaster import TextBroadcaster
 from aiogram_dialog import StartMode, DialogManager
 
 from config import ADMIN
+from database import DB
 from database.models import User
 from dialogs.states import Admin, Main
 
@@ -42,7 +43,7 @@ async def schedule(message: types.Message, dialog_manager: DialogManager):
 
 
 async def adm_handler(message: types.Message, dialog_manager: DialogManager):
-    if message.from_user.id == ADMIN:
+    if DB.get_user(message.from_user.id).role == "ADMIN":
         await dialog_manager.start(state=Admin.menu, mode=StartMode.RESET_STACK)
 
 async def clear_cache(message: types.Message, dialog_manager: DialogManager):
