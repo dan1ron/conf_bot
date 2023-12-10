@@ -43,7 +43,7 @@ async def schedule(message: types.Message, dialog_manager: DialogManager):
 
 
 async def adm_handler(message: types.Message, dialog_manager: DialogManager):
-    if await DB.get_user(message.from_user.id).role == "ADMIN":
+    if (await DB.get_user(message.from_user.id)).role == "ADMIN":
         await dialog_manager.start(state=Admin.menu, mode=StartMode.RESET_STACK)
 
 async def clear_cache(message: types.Message, dialog_manager: DialogManager):
